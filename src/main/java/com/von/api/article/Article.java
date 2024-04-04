@@ -1,6 +1,7 @@
 package com.von.api.article;
 
 import com.von.api.board.Board;
+import com.von.api.common.BaseEntity;
 import com.von.api.user.User;
 
 import lombok.*;
@@ -19,7 +20,7 @@ import jakarta.persistence.ManyToOne;
 @Getter
 @ToString(exclude = {"id"})
 @Entity(name = "articles")
-public class Article {
+public class Article extends BaseEntity{
 
     @Id
     @Column(name ="id", nullable = false)
@@ -27,9 +28,6 @@ public class Article {
     private Long id;
     private String title;
     private String content;
-
-    @Column(name = "register_date")
-    private String registerDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer", nullable = true)
@@ -40,12 +38,12 @@ public class Article {
     private Board board;
 
     @Builder(builderMethodName = "builder")
-    public Article(Long id, String title, String content, User writer, String registerDate) {
+    public Article(Long id, String title, String content, User writer) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
-        this.registerDate = registerDate;
+        
     }
 
 

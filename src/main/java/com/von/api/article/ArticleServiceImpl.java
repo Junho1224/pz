@@ -1,7 +1,7 @@
 package com.von.api.article;
 
 import com.von.api.common.AbstractService;
-import com.von.api.enums.Messenger;
+import com.von.api.common.component.MessengerVO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,15 +14,9 @@ import org.springframework.stereotype.Service;
 @SuppressWarnings("rawtypes")
 @Service
 @RequiredArgsConstructor
-public class ArticleServiceImpl extends AbstractService {
+public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository repository;
-
-    @Override
-    public Messenger save(Object t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
-    }
 
     @Override
     public List findAll() throws SQLException {
@@ -30,9 +24,31 @@ public class ArticleServiceImpl extends AbstractService {
     }
 
     @Override
-    public Optional findById(Long id) {
+    public String save(ArticleDTO t) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
+    @Override
+    public String insertMany() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'insertMany'");
+    }
+
+    @Override
+    public String delete(ArticleDTO t) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
+    @Override
+    public Optional<ArticleDTO> findById(Long id) {
+        Article ent = repository.findById(id).get();
+
+        Optional<ArticleDTO> dto = entityToDto(ent);
+
+        return Optional.of(dto.orElse(null));
+
     }
 
     @Override
@@ -42,21 +58,9 @@ public class ArticleServiceImpl extends AbstractService {
     }
 
     @Override
-    public Optional getOne(String id) {
+    public Optional<ArticleDTO> getOne(String id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getOne'");
-    }
-
-    @Override
-    public String delete(Object t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
-    }
-
-    @Override
-    public String deleteAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
     }
 
     @Override
@@ -67,5 +71,7 @@ public class ArticleServiceImpl extends AbstractService {
 
    
 
+
+    
     
 }

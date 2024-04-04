@@ -1,7 +1,8 @@
 package com.von.api.user;
 
 import com.von.api.common.AbstractService;
-import com.von.api.enums.Messenger;
+import com.von.api.common.component.MessengerVO;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,7 @@ public class UserServiceImpl extends AbstractService implements UserService{
 
     private final UserRepository repository;
 
-    @Override
-    public Messenger save(Object o) {
-        return null;
-    }
-
+    
     @Override
     public List<User> findAll() {
         return repository.findAll();
@@ -35,102 +32,60 @@ public class UserServiceImpl extends AbstractService implements UserService{
     }
 
     @Override
-    public String count() {
+    public String save(Object t) {
         return null;
+    
+    }
+
+    @Override
+    public String insertMany() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'insertMany'");
+    }
+
+    @Override
+    public String delete(Object t) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
+    @Override
+    public String count() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'count'");
     }
 
     @Override
     public Optional getOne(String id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public String delete(Object o) {
-        return null;
-    }
-
-    @Override
-    public String deleteAll() {
-        return null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getOne'");
     }
 
     @Override
     public Boolean existById(Long id) {
-        return null;
-    }
-
-    @Override
-    public String addUsers() {
-        return null;
-    }
-
-    @Override
-    public Messenger save(User user) {
-        return null;
-    }
-
-    @Override
-    public String delete(User user) {
-        return null;
-    }
-
-    @Override
-    public String login(User user) {
-        return null;
-    }
-
-    @Override
-    public String changePassword(User user) {
-        return null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'existById'");
     }
 
     @Override
     public List<?> findUsersByName(String name) {
-        return null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findUsersByName'");
     }
 
-    @Override
-    public Map<String, ?> findUsersByNameFromMap(String name) {
-        return null;
-    }
+    
 
     @Override
     public List<?> findUsersByJob(String job) {
-        return null;
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findUsersByJob'");
     }
 
     @Override
-    public Map<String, ?> findUsersByJobFromMap(String job) {
-        return null;
+    public String updatePassword(User user) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updatePassword'");
     }
 
-    @Override
-    public Map<String, ?> getUserMap() {
-        return null;
-    }
-
-    @Override
-    public String test() {
-        return null;
-    }
-
-    @Override
-    public User findUser(String userName) {
-        return null;
-    }
-
-    @Override
-    public List<User> findUsers() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public Messenger createTable() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public Messenger deleteTable() throws SQLException {
-        return null;
-    }
+    
 }

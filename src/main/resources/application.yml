@@ -1,11 +1,16 @@
 spring:
   application:
-    name: user
+    name: api
   datasource:
-    url: jdbc:mysql://localhost:3306/userdb?useSSL=false
+    url: jdbc:mysql://localhost:3306/userdb
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      platform: mysql
+      mode: always
+   
   jpa:
     hibernate:
       ddl-auto: create

@@ -3,6 +3,7 @@ package com.von.api.user;
 import java.util.List;
 
 import com.von.api.article.Article;
+import com.von.api.common.BaseEntity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,7 +14,7 @@ import lombok.*;
 @Getter
 @Builder
 @ToString(exclude = { "id" })
-public class User {
+public class User extends BaseEntity{
 
     @Id
     @Column(name = "id", nullable = false)
@@ -23,10 +24,8 @@ public class User {
     private String password;
     private String name;
     private String phone;
-    private String addressId;
     private String job;
-    private double height;
-    private double weight;
+
 
     @OneToMany(mappedBy = "writer")
     private List<Article> articlesId;

@@ -2,12 +2,13 @@ package com.von.api.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import com.von.api.enums.Messenger;
+
+import com.von.api.common.component.MessengerVO;
 
 import java.sql.SQLException;
 import java.util.*;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -16,7 +17,7 @@ public class UserController {
     private final UserServiceImpl service;
 
 
-    @PostMapping(path = "/api/users")
+    @PostMapping(path = "/api/join")
     public Map<String, ?> join(@RequestBody Map<String, ?> paramMap) {
         User newUser = User.builder()
                 .username((String) paramMap.get("username"))
@@ -24,16 +25,11 @@ public class UserController {
                 .name((String) paramMap.get("name"))
                 .phone((String) paramMap.get("phone"))
                 .job((String) paramMap.get("job"))
-                .height(Double.parseDouble((String) paramMap.get("height")))
-                .weight(Double.parseDouble((String) paramMap.get("weight")))
                 .build();
         System.out.println("DB에 저장된 User 정보" + newUser);
-
         repo.save(newUser);
         System.out.println("성공?");
-
-        Map<String, Messenger> map = new HashMap<>();
-        map.put("message", Messenger.SUCCESS);
+        Map<String, MessengerVO> map = new HashMap<>();
 
         return map;
     }
@@ -42,7 +38,6 @@ public class UserController {
     public Map<?,?> findAll() {
         Map<String, Object> map = new HashMap<>();
         List<User> list = new ArrayList<>();
-        map.put("message", Messenger.SUCCESS);
         list = service.findAll();
         list.forEach(System.out::println);
         System.out.println("리스트 사이즈 : "+list.size());
@@ -55,33 +50,33 @@ public class UserController {
     @PostMapping("/api/login")
     public Map<String, ?> userName(@RequestBody Map<String, ?> paramMap) {
 
-        Map<String, Messenger> resMap = new HashMap<>();
+        Map<String, MessengerVO> resMap = new HashMap<>();
 
-        String username = (String) paramMap.get("username");
-        String password = (String) paramMap.get("password");
-        System.out.println("username is " + username);
-        System.out.println("password is " + password);
+        // String username = (String) paramMap.get("username");
+        // String password = (String) paramMap.get("password");
+        // System.out.println("username is " + username);
+        // System.out.println("password is " + password);
 
 
-        User optUser = repo.findByUsername(username).orElse(null);
-        if (optUser == null) {
-            resMap.put("message", Messenger.FAIL);
-            System.out.println("null");
-            return resMap;
-        }else if (!optUser.getPassword().equals(password)){
-            resMap.put("message", Messenger.WRONG_PASSWORD);
-        }else {
-            resMap.put("message", Messenger.SUCCESS);
+        // User optUser = repo.findByUsername(username).orElse(null);
+        // if (optUser == null) {
+        //     resMap.put("message", MessengerVO.FAIL);
+        //     System.out.println("null");
+        //     return resMap;
+        // }else if (!optUser.getPassword().equals(password)){
+        //     resMap.put("message", MessengerVO.WRONG_PASSWORD);
+        // }else {
+        //     resMap.put("message", MessengerVO.SUCCESS);
 
-        }
-        Long id = optUser.getId();
-        System.out.println("ID is" + id);
+        // }
+        // Long id = optUser.getId();
+        // System.out.println("ID is" + id);
         
         return resMap;
     }
 
 
-    
+
 
     public Map<String, ?> save(@RequestBody Map<String, ?> map) {
         return null;

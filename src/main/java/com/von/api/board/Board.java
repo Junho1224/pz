@@ -4,6 +4,7 @@ package com.von.api.board;
 import java.util.List;
 
 import com.von.api.article.Article;
+import com.von.api.common.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +21,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(exclude = {"id"})
 @Entity(name = "board")
-public class Board {
+public class Board extends BaseEntity{
 
     @Id
     @Column(name = "id")
@@ -42,7 +43,7 @@ public class Board {
     @Builder(builderMethodName = "builder")
 
     public Board(Long id, String boardName, String boardType) {
-        //this.id = id;
+        this.id = id;
         this.boardName = boardName;
         this.boardType = boardType;
     }

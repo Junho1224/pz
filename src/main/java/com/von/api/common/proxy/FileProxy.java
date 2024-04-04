@@ -1,4 +1,4 @@
-package com.von.api.proxy;
+package com.von.api.common.proxy;
 
 import java.io.File;
 import java.util.HashMap;
