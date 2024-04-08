@@ -1,9 +1,9 @@
-package com.von.api.article;
+package com.von.api.article.model;
 
 import org.springframework.stereotype.Component;
 
-import com.von.api.board.Board;
-import com.von.api.user.User;
+import com.von.api.board.model.Board;
+import com.von.api.user.model.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +21,6 @@ public class ArticleDTO {
     private Long id;
     private String title;
     private String content;
-
-
     private User writer;
     private Board board;
     

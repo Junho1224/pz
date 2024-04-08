@@ -1,9 +1,9 @@
-package com.von.api.user;
+package com.von.api.user.model;
 
 import java.util.List;
 
-import com.von.api.article.Article;
-import com.von.api.common.BaseEntity;
+import com.von.api.article.model.Article;
+import com.von.api.common.model.BaseEntity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,17 +18,18 @@ public class User extends BaseEntity{
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String password;
+    private String email;
     private String name;
     private String phone;
     private String job;
 
 
     @OneToMany(mappedBy = "writer")
-    private List<Article> articlesId;
+    private List<Article> articles;
 
     // @OneToMany(mappedBy = "user")
     // private List<Order> ordersId;

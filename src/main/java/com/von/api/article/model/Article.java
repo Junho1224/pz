@@ -1,8 +1,8 @@
-package com.von.api.article;
+package com.von.api.article.model;
 
-import com.von.api.board.Board;
-import com.von.api.common.BaseEntity;
-import com.von.api.user.User;
+import com.von.api.board.model.Board;
+import com.von.api.common.model.BaseEntity;
+import com.von.api.user.model.User;
 
 import lombok.*;
 import jakarta.persistence.Column;
@@ -13,13 +13,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.extern.log4j.Log4j2;
 
 
+@Log4j2
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString(exclude = {"id"})
 @Entity(name = "articles")
+@Builder
 public class Article extends BaseEntity{
 
     @Id
@@ -37,14 +40,6 @@ public class Article extends BaseEntity{
     @JoinColumn(name = "board", nullable = true)
     private Board board;
 
-    @Builder(builderMethodName = "builder")
-    public Article(Long id, String title, String content, User writer) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-        
-    }
-
+   
 
 }

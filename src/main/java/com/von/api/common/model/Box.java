@@ -1,4 +1,4 @@
-package com.von.api.common;
+package com.von.api.common.model;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,12 +1,13 @@
 package com.von.api.crawler;
 
-import com.von.api.common.AbstractRepository;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Repository;
+
+import com.von.api.common.repository.AbstractRepository;
 
 import java.io.IOException;
 import java.util.HashMap;

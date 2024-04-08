@@ -1,4 +1,4 @@
-package com.von.api.common;
+package com.von.api.common.service;
 
 public interface UtilService {
 
