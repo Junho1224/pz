@@ -19,6 +19,8 @@ import com.von.api.user.service.UserServiceImpl;
 import java.sql.SQLException;
 import java.util.*;
 
+
+
 @ApiResponses(value = {
         @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
         @ApiResponse(responseCode = "404", description = "Customer not found")})
@@ -28,103 +30,64 @@ import java.util.*;
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
-
-    private final UserRepository repo;
     private final UserServiceImpl service;
 
 
 
-    @PostMapping(path = "")
-    public ResponseEntity<MessengerVO> save(@RequestBody UserDTO user) throws SQLException {
-        log.info("Save-회원가입 정보 : " + user);
-        return ResponseEntity.ok(MessengerVO.builder()
-                        .message(service.save(user).toString())
-                        .build());
+    @PostMapping(path = "/join")
+    public ResponseEntity<MessengerVO> save(@RequestBody UserDTO dto) {
+        log.info("join-입력받은 정보 : {}", dto);
+        return ResponseEntity.ok(service.save(dto));
     }
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<MessengerVO> deleteById(@PathVariable long id){
-        service.deleteById(0L);
-        return ResponseEntity.ok(new MessengerVO());
-    }
-    @GetMapping(path = "")
-    public ResponseEntity<List<UserDTO>> findAll(Pageable pageable) throws SQLException {
+
+
+    @GetMapping("/list")
+    public ResponseEntity<List<UserDTO>> findAll(){
+        log.info("입력받은 정보 : {}");
         return ResponseEntity.ok(service.findAll());
+        
     }
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<MessengerVO> findById(@PathVariable Long id){
-        service.findById(0L);
-        return ResponseEntity.ok(new MessengerVO());
-    }
-    @GetMapping(path = "/count")
-    public ResponseEntity<MessengerVO> count(){
-        service.count();
-        return ResponseEntity.ok(new MessengerVO());
-    }
-    @GetMapping(path = "/exists/{id}")
-    public ResponseEntity<MessengerVO> existById(@PathVariable long id){
-        service.existById(0L);
-        return ResponseEntity.ok(new MessengerVO());
-    }
-}
 
-//     @PostMapping(path = "/api/join")
-//     public Map<String, ?> join(@RequestBody Map<String, ?> paramMap) {
-//         User newUser = User.builder()
-//                 .username((String) paramMap.get("username"))
-//                 .password((String) paramMap.get("password"))
-//                 .name((String) paramMap.get("name"))
-//                 .phone((String) paramMap.get("phone"))
-//                 .job((String) paramMap.get("job"))
-//                 .build();
-//         System.out.println("DB에 저장된 User 정보" + newUser);
-//         repo.save(newUser);
-//         System.out.println("성공?");
-//         Map<String, MessengerVO> map = new HashMap<>();
+    @GetMapping(path = "/detail")
+    public ResponseEntity<Optional<UserDTO>> findById(@RequestParam Long id) {
+        log.info("입력받은 정보 : {}", id );
+        return ResponseEntity.ok(service.findById(id));
+    }
 
-//         return map;
-//     }
+    @PutMapping("/modify")
+    public ResponseEntity<MessengerVO> modify(@RequestBody UserDTO param) {
+        log.info("입력받은 정보 : {}", param );
+        return ResponseEntity.ok(service.modify(param));
+    }
 
-//     @GetMapping("/api/users")
-//     public Map<?,?> findAll() {
-//         Map<String, Object> map = new HashMap<>();
-//         List<User> list = new ArrayList<>();
-//         list = service.findAll();
-//         list.forEach(System.out::println);
-//         System.out.println("리스트 사이즈 : "+list.size());
-//         map.put("result",list);
-//         return map;
-//     }
+    @DeleteMapping("/delete")
+    public ResponseEntity<MessengerVO> deleteById(@RequestParam Long id) {
+        log.info("입력받은 정보 : {}", id );
+        return ResponseEntity.ok(service.deleteById(id));
+    }
     
 
-//     @SuppressWarnings("unchecked")
-//     @PostMapping("/api/login")
-//     public Map<String, ?> userName(@RequestBody Map<String, ?> paramMap) {
+    @GetMapping("/count")
+    public ResponseEntity<Long> count(){
+        return ResponseEntity.ok(service.count());
+    }
 
-//         Map<String, MessengerVO> resMap = new HashMap<>();
+    @PostMapping("/search")
+    public ResponseEntity<List<UserDTO>> findUsersByName(@RequestBody UserDTO param) {
+        //log.info("입력받은 정보 : {}", name );
+        return ResponseEntity.ok(service.findUsersByName(param.getName()));
+    }
+    
+    @PostMapping(path = "/login")
+    public ResponseEntity<MessengerVO> login(@RequestBody UserDTO param) {
+       log.info("입력받은 정보 : {}", param );
+        return ResponseEntity.ok(service.login(param));
+    }
 
-//         // String username = (String) paramMap.get("username");
-//         // String password = (String) paramMap.get("password");
-//         // System.out.println("username is " + username);
-//         // System.out.println("password is " + password);
-
-
-//         // User optUser = repo.findByUsername(username).orElse(null);
-//         // if (optUser == null) {
-//         //     resMap.put("message", MessengerVO.FAIL);
-//         //     System.out.println("null");
-//         //     return resMap;
-//         // }else if (!optUser.getPassword().equals(password)){
-//         //     resMap.put("message", MessengerVO.WRONG_PASSWORD);
-//         // }else {
-//         //     resMap.put("message", MessengerVO.SUCCESS);
-
-//         // }
-//         // Long id = optUser.getId();
-//         // System.out.println("ID is" + id);
-        
-//         return resMap;
-//     }
+    
 
 
+    
+    
+}
 
-// }

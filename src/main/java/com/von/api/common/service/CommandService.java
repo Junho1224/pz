@@ -2,9 +2,11 @@ package com.von.api.common.service;
 
 import java.sql.SQLException;
 
+import com.von.api.common.component.MessengerVO;
+
 public interface CommandService<T> {
-    T save(T t) throws SQLException;
-    void deleteById(Long id);
-    T modify(T t);
-    
+    MessengerVO save(T t) throws SQLException;
+    MessengerVO deleteById(Long id);
+    MessengerVO modify(T t);
+
 }

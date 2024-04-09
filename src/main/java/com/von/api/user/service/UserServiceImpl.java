@@ -1,42 +1,40 @@
 package com.von.api.user.service;
 
-import com.von.api.article.model.ArticleDTO;
-import com.von.api.common.AbstractService;
 import com.von.api.common.component.MessengerVO;
 import com.von.api.user.model.User;
 import com.von.api.user.model.UserDTO;
 import com.von.api.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 
-@SuppressWarnings("rawtypes")
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl extends AbstractService implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
 
     @Override
-    public UserDTO save(UserDTO t) throws SQLException {
-        return entityToDto(repository.save(dtoToEntity(t)));
+    public MessengerVO save(UserDTO t) {
+        entityToDto(repository.save(dtoToEntity(t)));
+        return new MessengerVO();
+
     }
 
     @Override
-    public void deleteById(Long id) {
+    public MessengerVO deleteById(Long id) {
         repository.deleteById(id);
+        return new MessengerVO();
     }
 
     @Override
-    public List<UserDTO> findAll() throws SQLException {
-        return repository.findAll().stream().map(i -> entityToDto(i)).toList();
+    public List<UserDTO> findAll(){
+        return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
 
     @Override
@@ -50,17 +48,45 @@ public class UserServiceImpl extends AbstractService implements UserService{
         return repository.count();
     }
 
-
-
     @Override
     public Boolean existById(Long id) {
         return repository.existsById(id);
     }
 
     @Override
-    public UserDTO modify(UserDTO t) {
+    public MessengerVO modify(UserDTO t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'modify'");
+    }
+
+    
+    @Override
+    public String updatePassword(User user) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updatePassword'");
+    }
+
+    @Override
+    public List<UserDTO> findUsersByName(String name) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findUsersByName'");
+    }
+
+    @Override
+    public List<UserDTO> findUsersByJob(String job) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findUsersByJob'");
+    }
+
+    @Override
+    public Optional<User> findUserByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
+    @Override
+    public MessengerVO login(UserDTO param) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'login'");
     }
 
 }

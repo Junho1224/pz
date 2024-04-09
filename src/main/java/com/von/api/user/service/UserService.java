@@ -1,8 +1,6 @@
 package com.von.api.user.service;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import com.von.api.common.component.MessengerVO;
@@ -12,6 +10,12 @@ import com.von.api.user.model.User;
 import com.von.api.user.model.UserDTO;
 
 public interface UserService extends CommandService<UserDTO>, QueryService<UserDTO>{
+    String updatePassword(User user);
+    List<UserDTO> findUsersByName(String name);
+    List<UserDTO> findUsersByJob(String job);
+    Optional<User> findUserByUsername(String username);
+    MessengerVO login(UserDTO param);
+
    
     default User dtoToEntity(UserDTO dto){    //dto 를 entity로 바꾸는 것
         return User.builder()

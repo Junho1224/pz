@@ -10,6 +10,7 @@ import com.von.api.common.component.PageRequestVO;
 import lombok.RequiredArgsConstructor;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,25 +23,22 @@ public class ArticleServiceImpl implements ArticleService {
     private final ArticleRepository repository;
 
     @Override
-    public ArticleDTO save(ArticleDTO t) throws SQLException {
-        return entityToDto(Optional.of(repository.save(dtoToEntity(t))));
+    public MessengerVO save(ArticleDTO t){
+        entityToDto(repository.save(dtoToEntity(t)));
+        return new MessengerVO();
     }
 
     @Override
-    public void deleteById(Long id) {
+    public MessengerVO deleteById(Long id) {
         repository.deleteById(id);
+        return new MessengerVO();
     }
 
 
     @Override
-    public List<ArticleDTO> findAll() throws SQLException {
-        //return repository.findAll(vo);
-        return null;
-    }
-
-    @Override
-    public Optional<ArticleDTO> findById(Long id) {
-        return Optional.of(entityToDto(repository.findById(id)));
+    public List<ArticleDTO> findAll(){
+        return repository.findAll().stream().map(i->entityToDto(i)).toList();
+        
     }
 
     @Override
@@ -55,9 +53,15 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDTO modify(ArticleDTO t) {
+    public MessengerVO modify(ArticleDTO t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'modify'");
+    }
+
+    @Override
+    public Optional<ArticleDTO> findById(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
     
     

@@ -2,7 +2,7 @@ spring:
   application:
     name: api
   datasource:
-    url: jdbc:mysql://localhost:3306/userdb
+    url: jdbc:mysql://local:3306/userdb
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -13,7 +13,8 @@ spring:
    
   jpa:
     hibernate:
-      ddl-auto: create -> data.sql
+      ddl-auto: create
+    
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -22,6 +23,7 @@ spring:
             '[non_contextual_creation]': true
         '[format_sql]': true
     show-sql: true
+    defer-datasource-initialization : true   
 logging:
   level:
     org:
