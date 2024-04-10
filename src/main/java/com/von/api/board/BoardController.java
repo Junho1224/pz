@@ -1,8 +1,6 @@
 package com.von.api.board;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -32,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Slf4j
 public class BoardController {
-    private final BoardServiceImpl service;
+    private final BoardService service;
 
     @PostMapping(path = "")
     public ResponseEntity<MessengerVO> save(PageRequestVO vo) throws SQLException {
@@ -52,11 +50,12 @@ public class BoardController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<MessengerVO> findById(@PathVariable Long id) {
-        service.findById(0L);
-        return ResponseEntity.ok(new MessengerVO());
+    @GetMapping(path = "/detail")
+    public ResponseEntity<Optional<BoardDTO>> findById(@RequestParam("id") Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
+
+    
 
     @GetMapping(path = "/count")
     public ResponseEntity<MessengerVO> count() {

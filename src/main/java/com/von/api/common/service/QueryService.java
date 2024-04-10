@@ -12,6 +12,8 @@ public interface QueryService<T> {
     Optional<T> findById(Long id);
     long count();
     Boolean existById(Long id);
+    // List<ArticleDTO> findArticlesByTitle(String title);
+    // List<ArticleDTO> findArticlesByContent(String content);
 
     
 }

@@ -1,14 +1,10 @@
 package com.von.api.board.service;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.von.api.article.model.ArticleDTO;
 import com.von.api.board.model.BoardDTO;
 import com.von.api.board.repository.BoardRepository;
 import com.von.api.common.component.MessengerVO;
@@ -58,8 +54,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public Optional<BoardDTO> findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return repository.findById(id).map(this::entityToDto);
     }
     
 }

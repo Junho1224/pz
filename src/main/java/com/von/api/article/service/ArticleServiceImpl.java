@@ -60,9 +60,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Optional<ArticleDTO> findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return repository.findById(id).map(this::entityToDto);
     }
+
+   
     
     
 }

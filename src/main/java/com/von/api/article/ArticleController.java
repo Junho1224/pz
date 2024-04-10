@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ArrayList;
 
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.von.api.article.model.ArticleDTO;
 import com.von.api.article.service.ArticleService;
+import com.von.api.article.service.ArticleServiceImpl;
 import com.von.api.common.component.MessengerVO;
 import com.von.api.common.component.PageRequestVO;
 
@@ -42,16 +44,18 @@ public class ArticleController {
         service.deleteById(0L);
         return ResponseEntity.ok(new MessengerVO());
     }
-    @GetMapping(path = "list")
+    @GetMapping(path = "/list")
     public ResponseEntity<List<ArticleDTO>> findAll(PageRequestVO vo) throws SQLException {
         log.info("입력받은 정보 : {}");
         return ResponseEntity.ok(service.findAll());
     }
-    @GetMapping(path = "/find/{id}")
-    public ResponseEntity<MessengerVO> findById(@PathVariable Long id){
-        service.findById(0L);
-        return ResponseEntity.ok(new MessengerVO());
+    @GetMapping("/detail")
+    public ResponseEntity<Optional<ArticleDTO>> findById(@RequestParam Long id){
+        log.info("입력받은 정보 : {}");
+        return ResponseEntity.ok(service.findById(id));
     }
+
+
     @GetMapping(path = "/count")
     public ResponseEntity<MessengerVO> count(){
         service.count();
