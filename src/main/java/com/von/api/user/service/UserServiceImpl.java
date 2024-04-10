@@ -39,8 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserDTO> findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return repository.findById(id).map(this::entityToDto);
     }
 
     @Override

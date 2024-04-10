@@ -49,7 +49,7 @@ public class ArticleController {
         log.info("입력받은 정보 : {}");
         return ResponseEntity.ok(service.findAll());
     }
-    @GetMapping("/detail")
+    @GetMapping(path = "/detail")
     public ResponseEntity<Optional<ArticleDTO>> findById(@RequestParam Long id){
         log.info("입력받은 정보 : {}");
         return ResponseEntity.ok(service.findById(id));
