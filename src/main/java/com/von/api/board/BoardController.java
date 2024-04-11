@@ -38,10 +38,10 @@ public class BoardController {
         return ResponseEntity.ok(new MessengerVO());
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<MessengerVO> deleteById(@PathVariable long id) {
-        service.deleteById(0L);
-        return ResponseEntity.ok(new MessengerVO());
+    @DeleteMapping(path = "/delete")
+    public ResponseEntity<MessengerVO> deleteById(@RequestParam Long id) {
+        log.info("입력받은 정보 : {}", id );
+        return ResponseEntity.ok(service.deleteById(id));
     }
 
     @GetMapping("list")
@@ -58,9 +58,8 @@ public class BoardController {
     
 
     @GetMapping(path = "/count")
-    public ResponseEntity<MessengerVO> count() {
-        service.count();
-        return ResponseEntity.ok(new MessengerVO());
+    public ResponseEntity<Long> count(){
+        return ResponseEntity.ok(service.count());
     }
 
     @GetMapping(path = "/exists/{id}")

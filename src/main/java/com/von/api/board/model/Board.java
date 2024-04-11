@@ -16,13 +16,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 
-
+@ToString(exclude = {"id"})
 @Entity(name="boards")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Getter
-@ToString
 public class Board extends BaseEntity{
 
     @Id

@@ -52,11 +52,6 @@ public class UserServiceImpl implements UserService {
         return repository.existsById(id);
     }
 
-    @Override
-    public MessengerVO modify(UserDTO t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modify'");
-    }
 
     
     @Override
@@ -86,6 +81,12 @@ public class UserServiceImpl implements UserService {
     public MessengerVO login(UserDTO param) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'login'");
+    }
+
+    @Override
+    public MessengerVO modify(UserDTO t) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'modify'");
     }
 
 }

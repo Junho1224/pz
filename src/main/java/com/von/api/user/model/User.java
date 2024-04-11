@@ -28,15 +28,8 @@ public class User extends BaseEntity{
     private String job;
 
 
-    @OneToMany(mappedBy = "writer")
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
     private List<Article> articles;
 
-    // @OneToMany(mappedBy = "user")
-    // private List<Order> ordersId;
 
-
-
-   
-
-   
 }

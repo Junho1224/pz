@@ -12,7 +12,6 @@ public interface BoardService extends CommandService<BoardDTO>, QueryService<Boa
         .id(dto.getId())
         .boardName(dto.getBoardName())
         .boardType(dto.getBoardType())
-        
         .build();
     }
 
