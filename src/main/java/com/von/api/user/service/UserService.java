@@ -9,6 +9,7 @@ import com.von.api.common.service.QueryService;
 import com.von.api.user.model.User;
 import com.von.api.user.model.UserDTO;
 
+
 public interface UserService extends CommandService<UserDTO>, QueryService<UserDTO>{
     String updatePassword(User user);
     List<UserDTO> findUsersByName(String name);

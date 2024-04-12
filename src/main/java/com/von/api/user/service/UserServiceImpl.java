@@ -6,9 +6,9 @@ import com.von.api.user.model.UserDTO;
 import com.von.api.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,14 +23,54 @@ public class UserServiceImpl implements UserService {
     public MessengerVO save(UserDTO t) {
         entityToDto(repository.save(dtoToEntity(t)));
         return new MessengerVO();
+    
+    //     User ent = repository.save(dtoToEntity(t));
+    //     System.out.println("========= UserServiceImpl save instanceof =========");
+    //     System.out.println((ent instanceof User) ? "SUCCESS": "FAILURE");
+    //     return MessengerVO.builder()
+    //     .message((ent instanceof User) ? "SUCCESS": "FAILURE")
+    //     .build();
 
+    }
+
+    @Override
+    public MessengerVO modify(UserDTO userDto) {
+        repository.save(dtoToEntity(userDto));
+        return MessengerVO.builder().message("True").build();
+    
+        // return MessengerVO.builder()
+        // .message(
+        //     findUserByUsername(userDto.getUsername()).stream()
+        //     .peek(i -> i.setPassword(userDto.getPassword()))
+        //     .peek(i -> i.setName(userDto.getName()))
+        //     .peek(i -> i.setPhone(userDto.getPhone()))
+        //     .peek(i -> i.setJob(userDto.getJob()))
+        //     .peek(i -> repository.save(i))
+        //     .map(i -> "SUCCESS").findAny()
+        //     .orElseGet(() -> "FAILURE")
+        // )
+        // .build();
     }
 
     @Override
     public MessengerVO deleteById(Long id) {
         repository.deleteById(id);
-        return new MessengerVO();
+        String msg = repository.findById(id).isPresent() ? "SUCCESS": "FAILURE";
+        return MessengerVO.builder()
+        .message(msg)
+        .build();
+        // return MessengerVO.builder()
+        // .message(
+        //     Stream.of(id)
+        //     .filter(i -> repository.existsById(i))
+        //     .peek(i -> repository.deleteById(i))
+        //     .map(i -> "SUCCESS")
+        //     .findAny()
+        //     .orElseGet(() -> "FAILURE")
+        // )
+        // .build();
     }
+
 
     @Override
     public List<UserDTO> findAll(){
@@ -83,10 +123,5 @@ public class UserServiceImpl implements UserService {
         throw new UnsupportedOperationException("Unimplemented method 'login'");
     }
 
-    @Override
-    public MessengerVO modify(UserDTO t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modify'");
-    }
 
 }

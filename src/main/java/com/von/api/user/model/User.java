@@ -14,6 +14,7 @@ import lombok.*;
 @Getter
 @Builder
 @ToString(exclude = { "id" })
+@Setter
 public class User extends BaseEntity{
 
     @Id
@@ -28,8 +29,10 @@ public class User extends BaseEntity{
     private String job;
 
 
-    @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE) // orphanRemoval = flase가 default
     private List<Article> articles;
+
+
 
 
 }

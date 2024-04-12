@@ -2,7 +2,7 @@ spring:
   application:
     name: api
   datasource:
-    url: jdbc:mysql://local:3306/userdb
+    url: jdbc:mysql://localhost:3306/userdb
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,7 +23,8 @@ spring:
             '[non_contextual_creation]': true
         '[format_sql]': true
     show-sql: true
-    defer-datasource-initialization : true   
+    defer-datasource-initialization : true
+    open-in-view : false   
 logging:
   level:
     org:

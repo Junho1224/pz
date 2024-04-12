@@ -6,14 +6,7 @@ import java.util.List;
 import com.von.api.article.model.Article;
 import com.von.api.common.model.BaseEntity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 @ToString(exclude = {"id"})
@@ -32,7 +25,7 @@ public class Board extends BaseEntity{
     private String boardName;
     private String boardType;
 
-    @OneToMany(mappedBy ="board", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy ="board", cascade = CascadeType.REMOVE) // fetch = FetchType.LAZY LAZY가 default값  orphanRemoval = flase
     private List<Article> articles;
 
 }
