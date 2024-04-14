@@ -21,15 +21,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public MessengerVO save(UserDTO t) {
-        entityToDto(repository.save(dtoToEntity(t)));
-        return new MessengerVO();
+        // entityToDto(repository.save(dtoToEntity(t)));
+        // return new MessengerVO();
     
-    //     User ent = repository.save(dtoToEntity(t));
-    //     System.out.println("========= UserServiceImpl save instanceof =========");
-    //     System.out.println((ent instanceof User) ? "SUCCESS": "FAILURE");
-    //     return MessengerVO.builder()
-    //     .message((ent instanceof User) ? "SUCCESS": "FAILURE")
-    //     .build();
+        User ent = repository.save(dtoToEntity(t));
+        System.out.println("========= UserServiceImpl save instanceof =========");
+        System.out.println((ent instanceof User) ? "SUCCESS": "FAILURE");
+        return MessengerVO.builder()
+        .message((ent instanceof User) ? "SUCCESS": "FAILURE")
+        .build();
 
     }
 
