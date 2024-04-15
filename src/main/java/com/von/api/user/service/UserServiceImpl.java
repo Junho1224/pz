@@ -21,34 +21,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public MessengerVO save(UserDTO t) {
-        // entityToDto(repository.save(dtoToEntity(t)));
-        // return new MessengerVO();
+        entityToDto(repository.save(dtoToEntity(t)));
+        return new MessengerVO();
     
-        User ent = repository.save(dtoToEntity(t));
-        System.out.println("========= UserServiceImpl save instanceof =========");
-        System.out.println((ent instanceof User) ? "SUCCESS": "FAILURE");
-        return MessengerVO.builder()
-        .message((ent instanceof User) ? "SUCCESS": "FAILURE")
-        .build();
+        // User ent = repository.save(dtoToEntity(t));
+        // System.out.println("========= UserServiceImpl save instanceof =========");
+        // System.out.println((ent instanceof User) ? "SUCCESS": "FAILURE");
+        // return MessengerVO.builder()
+        // .message((ent instanceof User) ? "SUCCESS": "FAILURE")
+        // .build();
 
     }
 
     @Override
-    public MessengerVO modify(UserDTO userDto) {
+    public MessengerVO modify(UserDTO userDto) { //비밀번호 전화번호 직업
         repository.save(dtoToEntity(userDto));
         return MessengerVO.builder().message("True").build();
     
+        // User ent = repository.save(dtoToEntity(userDto));
+        // System.out.println(" ============ BoardServiceImpl modify instanceof =========== ");
+        // System.out.println((ent instanceof User) ? "SUCCESS" : "FAILURE");
         // return MessengerVO.builder()
-        // .message(
-        //     findUserByUsername(userDto.getUsername()).stream()
-        //     .peek(i -> i.setPassword(userDto.getPassword()))
-        //     .peek(i -> i.setName(userDto.getName()))
-        //     .peek(i -> i.setPhone(userDto.getPhone()))
-        //     .peek(i -> i.setJob(userDto.getJob()))
-        //     .peek(i -> repository.save(i))
-        //     .map(i -> "SUCCESS").findAny()
-        //     .orElseGet(() -> "FAILURE")
-        // )
+        // .message((ent instanceof User) ? "SUCCESS" : "FAILURE")
         // .build();
     }
 
@@ -118,9 +112,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public MessengerVO login(UserDTO param) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'login'");
+    public MessengerVO login(UserDTO dto) {
+        return MessengerVO.builder()
+        .message(findUserByUsername(dto.getUsername()).get().getPassword().equals(dto.getPassword())? "SUCCESS": "FAILURE")
+        .build();
     }
 
 
