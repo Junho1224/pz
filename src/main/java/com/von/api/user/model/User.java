@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Builder
-@ToString(exclude = { "id" })
+@ToString(exclude = { "id","token","articles"})
 @Setter
 public class User extends BaseEntity{
 
@@ -28,9 +28,14 @@ public class User extends BaseEntity{
     private String phone;
     private String job;
 
+    @Column(name = "token", length = 512)
+    private String token;
+
 
     @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE) // orphanRemoval = flase가 default
     private List<Article> articles;
+
+    
 
 
 

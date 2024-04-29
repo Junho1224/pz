@@ -16,6 +16,9 @@ public interface UserService extends CommandService<UserDTO>, QueryService<UserD
     List<UserDTO> findUsersByJob(String job);
     Optional<User> findUserByUsername(String username);
     MessengerVO login(UserDTO param);
+    Boolean logout(String id);
+    Boolean existsUsername(String username);
+    
 
    
     default User dtoToEntity(UserDTO dto){    //dto 를 entity로 바꾸는 것

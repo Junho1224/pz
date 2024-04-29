@@ -18,12 +18,13 @@ import lombok.*;
 public class Board extends BaseEntity{
 
     @Id
-    @Column(name = "board_id", nullable = false)
+    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String content;
 
-    private String boardName;
-    private String boardType;
+    private String title;
+    private String description;
 
     @OneToMany(mappedBy ="board", cascade = CascadeType.REMOVE) // fetch = FetchType.LAZY LAZY가 default값  orphanRemoval = flase
     private List<Article> articles;

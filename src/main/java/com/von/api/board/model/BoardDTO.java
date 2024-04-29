@@ -21,7 +21,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class BoardDTO {
     private Long id;
-    private String boardName;
-    private String boardType;
-    private List<Article> articles;
+    private String title;
+    private String content;
+    private String description;
 }

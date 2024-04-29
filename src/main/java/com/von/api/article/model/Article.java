@@ -13,10 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.extern.log4j.Log4j2;
 
 
-@Log4j2
+
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -27,17 +26,21 @@ public class Article extends BaseEntity{
 
     @Id
     @Column(name ="id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "title", length = 128)
     private String title;
+
+    @Column(name = "content", length = 1024)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "writer", nullable = true)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
     private User writer;
 
     @ManyToOne
-    @JoinColumn(name = "board", nullable = true)
+    @JoinColumn(name = "board_id", nullable = true)
     private Board board;
 
 

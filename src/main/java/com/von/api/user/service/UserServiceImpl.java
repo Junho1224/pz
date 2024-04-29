@@ -1,18 +1,22 @@
 package com.von.api.user.service;
 
-import com.von.api.common.component.JwtProvider;
 import com.von.api.common.component.MessengerVO;
+import com.von.api.common.component.security.JwtProvider;
 import com.von.api.user.model.User;
 import com.von.api.user.model.UserDTO;
 import com.von.api.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -110,16 +114,41 @@ public class UserServiceImpl implements UserService {
         return repository.findByUsername(username);
     }
 
-    //단일책임원칙(SRP)에 따라 아이디 존재여부를 프론트에서 먼저 판단하고, 넘어옴 (시큐리티)
+    // 단일책임원칙(SRP)에 따라 아이디 존재여부를 프론트에서 먼저 판단하고, 넘어옴 (시큐리티)
+    @Transactional
     @Override
-    public MessengerVO login(UserDTO param) {
-        boolean flag = repository.findByUsername(param.getUsername()).get().getPassword().equals(param.getPassword());
+    public MessengerVO login(UserDTO dto) {
+        log.info("로그인 서비스로 들어온 파라미터 : " + dto);
+        var user = repository.findByUsername(dto.getUsername()).get();
+        var accessToken = jwtProvider.createToken(entityToDto(user));
+        var flag = user.getPassword().equals(dto.getPassword());
+        // passwordEncoder.matches
+
+        // 토큰을 각 섹션(Header, Payload, Signature)으로 분할
+        jwtProvider.printPayload(accessToken);
 
         return MessengerVO.builder()
                 .message(flag ? "SUCCESS" : "FAILURE")
-                .token(flag ? jwtProvider.createToken(param) : "None")
+                .accessToken(flag ? accessToken : "None")
                 .build();
-
     }
+
+    
+
+    @Override
+    public Boolean existsUsername(String username) {
+        Integer count = repository.existsUsername(username);
+        return count == 1;
+    }
+
+    @Transactional
+    @Override
+    public Boolean logout(String accessToken) {
+        Long id = 0L;
+        String deltetedToken ="";
+        repository.modifyTokenById(id,deltetedToken);
+        return repository.findById(id).get().getToken().equals("");
+    }
+
 
 }

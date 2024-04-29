@@ -5,7 +5,7 @@ import com.von.api.article.model.ArticleDTO;
 import com.von.api.article.repository.ArticleRepository;
 import com.von.api.common.AbstractService;
 import com.von.api.common.component.MessengerVO;
-import com.von.api.common.component.PageRequestVO;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class ArticleServiceImpl implements ArticleService {
     private final ArticleRepository repository;
 
+
     @Override
     public MessengerVO save(ArticleDTO t){
         entityToDto(repository.save(dtoToEntity(t)));
@@ -31,7 +32,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public MessengerVO deleteById(Long id) {
         repository.deleteById(id);
-        return new MessengerVO();
+        return MessengerVO.builder()
+                .message(repository.existsById(id) ? "FAILURE" : "SUCCESS")
+                .build();
     }
 
 
@@ -54,14 +57,23 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public MessengerVO modify(ArticleDTO t) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modify'");
+        repository.save(dtoToEntity(t));
+        return MessengerVO.builder().message("True").build();
+
     }
 
     @Override
     public Optional<ArticleDTO> findById(Long id) {
         return repository.findById(id).map(this::entityToDto);
     }
+
+    @Override
+    public List<ArticleDTO> myList(Long id) {
+        return repository.getArticlesByBoardId(id).stream().map(i->entityToDto(i)).toList();
+        
+    }
+
+
 
    
     

@@ -9,15 +9,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+
 import java.util.*;
 
 import com.von.api.board.model.BoardDTO;
 import com.von.api.board.service.BoardService;
 import com.von.api.board.service.BoardServiceImpl;
 import com.von.api.common.component.MessengerVO;
-import com.von.api.common.component.PageRequestVO;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,21 +31,18 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
     private final BoardService service;
 
-    @PostMapping(path = "")
-    public ResponseEntity<MessengerVO> save(PageRequestVO vo) throws SQLException {
-        service.save(null);
-        return ResponseEntity.ok(new MessengerVO());
+    @PostMapping(path = "/save")
+    public ResponseEntity<MessengerVO> save(BoardDTO dto) throws SQLException {
+        return ResponseEntity.ok(service.save(dto));
     }
 
     @DeleteMapping(path = "/delete")
     public ResponseEntity<MessengerVO> deleteById(@RequestParam Long id) {
-        log.info("입력받은 정보 : {}", id );
         return ResponseEntity.ok(service.deleteById(id));
     }
 
     @GetMapping("list")
-    public ResponseEntity<List<BoardDTO>> findAll(PageRequestVO vo) throws SQLException {
-        log.info("입력받은 정보 : {}" );
+    public ResponseEntity<List<BoardDTO>> findAll() throws SQLException {
         return ResponseEntity.ok(service.findAll());
     }
 
@@ -64,7 +60,6 @@ public class BoardController {
 
     @GetMapping(path = "/exists/{id}")
     public ResponseEntity<MessengerVO> existById(@PathVariable long id) {
-        service.existById(0L);
         return ResponseEntity.ok(new MessengerVO());
     }
 }
